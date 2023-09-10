@@ -1,4 +1,6 @@
-use sdl2::{Sdl, event::Event, video::Window};
+use sdl2::{Sdl, event::Event};
+
+use crate::core::window::Window;
 
 pub struct App{
     is_quit: bool,
@@ -7,31 +9,19 @@ pub struct App{
     last_drawtick: u32,
 
     sdl: Sdl,
-    main_window: Window
-}
-
-fn init_sdl() -> (Sdl, Window){
-    let sdl_context = sdl2::init().expect("msg");
-    let video_subsystem = sdl_context.video().expect("msg");
-
-    let window = video_subsystem
-        .window("rust-sdl2 demo: Window", 800, 600)
-        .resizable()
-        .build()
-        .map_err(|e| e.to_string()).expect("msg");
-    return (sdl_context, window);
+    window: Window
 }
 
 impl App {
     pub fn new() -> App{
-        let (sdl,  main_window) = init_sdl();
+        let (sdl,  window) = App::init_sdl();
         App { 
             is_quit: false, 
             is_pause: false, 
             last_fixtic: 0, 
             last_drawtick: 0, 
             sdl,
-            main_window,
+            window,
         }
     }
 
@@ -52,5 +42,10 @@ impl App {
         }
     }
 
+    fn init_sdl() -> (Sdl, Window){
+        let sdl_context = sdl2::init().expect("msg");
+        let window = Window::new(&sdl_context);
 
+        return (sdl_context, window);
+    }
 }
