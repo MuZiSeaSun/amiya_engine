@@ -1,6 +1,11 @@
-use sdl2::event::Event;
-use sdl2::keyboard::Keycode;
-use sdl2::pixels::Color;
+use sdl2::{event::Event, keyboard::Keycode, pixels::Color};
+
+// use amiya_engine::core::app::App;
+
+// fn main(){
+//     let mut app = App::new();
+//     app.run();
+// }
 
 fn main() {
     let sdl_context = sdl2::init().expect("msg");
