@@ -2,3 +2,4 @@
 a mini gameengine base on rust and sdl2
 
 mainloop
+![snapshot](.\readme\amiya-mainloop.jpg)
