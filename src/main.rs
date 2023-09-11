@@ -3,7 +3,7 @@
 use amiya_engine::core::app::App;
 
 fn main(){
-    let mut app = App::new();
+     let mut app = App::new();
     app.run();
 }
 
