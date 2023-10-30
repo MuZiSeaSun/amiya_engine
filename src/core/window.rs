@@ -33,5 +33,6 @@ impl Window {
         let tex = surface.as_texture(&texture_creator).expect("err");
         self.canvas.copy(&tex, Option::None, Option::None).expect("err");
         self.canvas.present();
+        self.canvas.clear();
     }
 }
