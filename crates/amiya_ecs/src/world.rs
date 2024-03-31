@@ -1,6 +1,6 @@
-use std::{any::{self, Any, TypeId}, collections::{HashMap, HashSet}, rc::Rc};
+use std::{any::{Any, TypeId}, collections::HashMap};
 
-use super::{component::{Component, Components, Storage}, entity::Entity, sparse_set::SparseSet};
+use super::{component::{Component, Components}, entity::Entity, sparse_set::SparseSet};
 
 pub struct World{
     entity_map : SparseSet<Entity>,
@@ -131,30 +131,31 @@ impl World {
 }
 
 mod test{
-    use super::World;
-
+    
     pub struct Name{
         pub name : String
     }
-
+    
     impl Default for Name {
         fn default() -> Self {
             Self { name: "none".to_string() }
         }
     }
-
+    
     pub struct Age{
         pub age : u32
     }
-
+    
     impl Default for Age {
         fn default() -> Self {
             Self { age : 233 }
         }
     }
-
+    
     #[test]
     fn test_all(){
+        use crate::world::World;
+        
         let mut world = World::new();
 
         let e1 = world.spaw_entity();

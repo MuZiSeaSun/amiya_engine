@@ -1,5 +1,3 @@
-use std::collections::btree_map::Values;
-
 pub struct SparseSet<V : ?Sized>{
     indices : Vec<usize>,
     sparse : Vec<Option<usize>>,

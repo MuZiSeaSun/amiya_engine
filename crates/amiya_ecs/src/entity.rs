@@ -1,6 +1,6 @@
 use std::{any::TypeId, collections::HashSet};
 
-use super::{component::Component, world::World};
+use super::component::Component;
 
 pub struct Entity{
     id : usize,
@@ -23,17 +23,17 @@ impl Entity{
         self.component_map.contains(&TypeId::of::<Com>())
     }
 
-    pub(crate) fn add_component<Com : Component>(self : &mut Self){
-        self.component_map.insert(TypeId::of::<Com>());
-    }
+    // pub(crate) fn add_component<Com : Component>(self : &mut Self){
+    //     self.component_map.insert(TypeId::of::<Com>());
+    // }
 
-    pub(crate) fn remove_component<Com : Component>(self : &mut Self){
-        self.component_map.remove(&TypeId::of::<Com>());
-    }
+    // pub(crate) fn remove_component<Com : Component>(self : &mut Self){
+    //     self.component_map.remove(&TypeId::of::<Com>());
+    // }
 }
 
 mod test{
-    use super::{super::component::Component, Entity};
+    // use super::{super::component::Component, Entity};
 
     #[derive(Default)]
     struct A;

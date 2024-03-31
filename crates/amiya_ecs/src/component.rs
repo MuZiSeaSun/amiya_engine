@@ -1,6 +1,6 @@
-use std::{any::{Any, TypeId}, collections::btree_map::Values, default::{self, Default}};
+use std::{any::Any, default::Default};
 
-use super::{entity::Entity, sparse_set::SparseSet};
+use super::sparse_set::SparseSet;
 
 pub trait Component : Any + 'static {
     fn new()->Box<Self> where Self:Sized;
@@ -72,7 +72,7 @@ impl<Com : Component> Pool<Com> for ComponentPool<Com> {
 
 
 pub struct Components<Com : Component + ?Sized>{
-    id : TypeId,
+    // id : TypeId,
     components : SparseSet<Com>,
     pool : ComponentPool<Com>
 }
@@ -81,7 +81,7 @@ impl<Com : Component + Sized + 'static> Components<Com> {
     #[inline]
     pub fn new()->Self{
         Components{
-            id : TypeId::of::<Com>(),
+            // id : TypeId::of::<Com>(),
             components : SparseSet::new(),
             pool : ComponentPool::new()
         }
@@ -130,10 +130,12 @@ impl<Com : Component + Sized + 'static> Components<Com> {
         self.components.get_mut(entity_id)
     }
 
+    #[inline]
     pub fn get_all(&self)-> &[Box<Com>]{
         self.components.get_all()
     }
 
+    #[inline]
     pub fn get_all_mut(&mut self)-> &mut [Box<Com>]{
         self.components.get_all_mut()
     }
@@ -153,33 +155,21 @@ impl<Com : Component> Storage<Com> for Components<Com> {
 
 mod test{
 
-    use crate::component::Components;
-
-    use super::Component;
-
+    
     pub struct A{
         pub name : String
     }
-
+    
     impl Default for A {
         fn default() -> Self {
             Self { name: "none".to_string() }
         }
     }
-    
-    // impl Component for A {
-    //     fn init(&mut self) {
-    //         self.name = "none".to_string()
-    //     }
-        
-    //     fn new()->Box<Self> where Self:Sized {
-    //         Box::new(A{name: "none".to_string()})
-    //     }
-    // }
-
+                
     #[test]
     fn test_all(){
-
+        use crate::component::Components;
+                    
         let mut components = Components::<A>::new();
 
         components.add_component(0);
